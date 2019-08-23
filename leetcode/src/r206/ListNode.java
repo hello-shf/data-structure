@@ -79,8 +79,8 @@ class Solution {
         int[] arr = {1, 2, 3, 4};
         ListNode listNode = new ListNode(arr);
         System.out.println(listNode);
-//        ListNode newList = reverseList(listNode);
-        ListNode newList = reverseList1(listNode);
+        ListNode newList = reverseList(listNode);
+//        ListNode newList = reverseList1(listNode);
         System.out.println(newList);
 
     }
