@@ -2,13 +2,20 @@ package avl;
 
 import java.util.ArrayList;
 
-public class AVLTree<K extends Comparable<K>, V> {
+/**
+ * 描述：AVL 平衡二叉树的实现
+ *
+ * @Author shf
+ * @Date 2019/7/31 15:35
+ * @Version V1.0
+ **/
+public class AVL<K extends Comparable<K>, V> {
 
     private class Node{
         public K key;
         public V value;
         public Node left, right;
-        public int height;
+        public int height;// 记录节点的高度
 
         public Node(K key, V value){
             this.key = key;
@@ -22,7 +29,7 @@ public class AVLTree<K extends Comparable<K>, V> {
     private Node root;
     private int size;
 
-    public AVLTree(){
+    public AVL(){
         root = null;
         size = 0;
     }
@@ -181,6 +188,7 @@ public class AVLTree<K extends Comparable<K>, V> {
 
     /**
      * 向以node为根的二分搜索树中插入元素(key, value)，递归算法
+     * 时间复杂度 O(log n)
      * @param node
      * @param key
      * @param value
@@ -317,17 +325,6 @@ public class AVLTree<K extends Comparable<K>, V> {
     }
 
     /**
-     * 返回以node为根的二分搜索树的最小值所在的节点
-     * @param node
-     * @return
-     */
-    private Node minimum(Node node){
-        if(node.left == null)
-            return node;
-        return minimum(node.left);
-    }
-
-    /**
      * 从二分搜索树中删除键为key的节点
      * @param key
      * @return
@@ -364,9 +361,9 @@ public class AVLTree<K extends Comparable<K>, V> {
             // return node;
             retNode = node;
         }
-        else{   // key.compareTo(node.key) == 0
+        else{   // key.compareTo(node.key) == 0 找到待删除的节点 node
 
-            // 待删除节点左子树为空的情况
+            // 待删除节点左子树为空，直接将右孩子替代当前节点
             if(node.left == null){
                 Node rightNode = node.right;
                 node.right = null;
@@ -375,7 +372,7 @@ public class AVLTree<K extends Comparable<K>, V> {
                 retNode = rightNode;
             }
 
-            // 待删除节点右子树为空的情况
+            // 待删除节点右子树为空，直接将左孩子替代当前节点
             else if(node.right == null){
                 Node leftNode = node.left;
                 node.left = null;
@@ -386,8 +383,8 @@ public class AVLTree<K extends Comparable<K>, V> {
 
             // 待删除节点左右子树均不为空的情况
             else{
-                // 找到比待删除节点大的最小节点, 即待删除节点右子树的最小节点
-                // 用这个节点顶替待删除节点的位置
+                // 待删除节点左右子树均不为空
+                // 找到右子树最小的元素，替代待删除节点
                 Node successor = minimum(node.right);
                 //successor.right = removeMin(node.right);
                 successor.right = remove(node.right, successor.key);
@@ -431,5 +428,16 @@ public class AVLTree<K extends Comparable<K>, V> {
         }
 
         return retNode;
+    }
+
+    /**
+     * 返回以node为根的二分搜索树的最小值所在的节点
+     * @param node
+     * @return
+     */
+    private Node minimum(Node node){
+        if(node.left == null)
+            return node;
+        return minimum(node.left);
     }
 }

@@ -1,6 +1,10 @@
 package rb;
 
 
+import java.util.PriorityQueue;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 /**
  * 描述：
  *
@@ -11,9 +15,12 @@ package rb;
 public class Main {
     public static void main(String[] args) {
         RBTree<Integer, Integer> rb = new RBTree<>();
-        for (int i=0; i< 2; i++){
+        for (int i=1; i<6 ; i++){
             rb.add(i, i);
         }
+        rb.remove(5);
         rb.levelOrder();
+
+        TreeMap<String, String> map = new TreeMap<>();
     }
 }

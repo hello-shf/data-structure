@@ -1,13 +1,18 @@
 package link;
 
 /**
- * 描述：
+ * 描述：单向链表实现
+ * 对应 java 集合类 linkedList
  *
  * @Author shf
  * @Date 2019/7/18 16:45
  * @Version V1.0
  **/
-public class LinkedList<E> {
+
+public class MyLinkedList<E> {
+    /**
+     * 私有的 Node
+     */
     private class Node{
         public E e;
         public Node next;
@@ -22,11 +27,15 @@ public class LinkedList<E> {
         public Node(){
             this(null, null);
         }
+        @Override
+        public String toString(){
+            return e.toString() + "-->" + next;
+        }
     }
     private Node dummyHead;
     private int size;
 
-    public LinkedList(){
+    public MyLinkedList(){
         dummyHead = new Node();
         size = 0;
     }
@@ -38,7 +47,8 @@ public class LinkedList<E> {
     }
 
     /**
-     * 在 index 位置添加新元素
+     * 在 index 位置 添加元素
+     * 时间复杂度：O（n）
      * @param index
      * @param e
      */
@@ -55,7 +65,8 @@ public class LinkedList<E> {
     }
 
     /**
-     * 在链表头添加元素
+     * 在链表头 添加元素
+     * 时间复杂度：O（1）
      * @param e
      */
     public void addFirst(E e){
@@ -63,7 +74,8 @@ public class LinkedList<E> {
     }
 
     /**
-     * 在链表尾添加元素
+     * 在链表尾 添加元素
+     * 时间复杂度：O（n）
      * @param e
      */
     public void addLast(E e){
@@ -72,6 +84,7 @@ public class LinkedList<E> {
 
     /**
      * 获取链表的第index个位置的元素
+     * 时间复杂度：O（n）
      * @param index
      * @return
      */
@@ -88,6 +101,7 @@ public class LinkedList<E> {
 
     /**
      * 获取头元素
+     * 时间复杂度：O（1）
      * @return
      */
     public E getFirst(){
@@ -96,6 +110,7 @@ public class LinkedList<E> {
 
     /**
      * 获取尾元素
+     * 时间复杂度：O（n）
      * @return
      */
     public E getLast(){
@@ -104,6 +119,7 @@ public class LinkedList<E> {
 
     /**
      * 修改 index 位置的元素 e
+     * 时间复杂度：O（n）
      * @param index
      * @param e
      */
@@ -120,6 +136,7 @@ public class LinkedList<E> {
 
     /**
      * 查找链表中是否存在元素 e
+     * 时间复杂度：O（n）
      * @param e
      * @return
      */
@@ -149,13 +166,13 @@ public class LinkedList<E> {
         }
         Node rem = prev.next;
         prev.next = rem.next;
-        rem.next = null;// 看不懂这行就是还没理解链表
+        rem.next = null;// 看不懂这行就是还没理解链表。将rem断开与链表的联系。
         size--;
         return rem.e;
     }
 
     /**
-     * 删除第一个
+     * 删除 头元素
      * @return
      */
     public E removeFirst(){
@@ -163,24 +180,73 @@ public class LinkedList<E> {
     }
 
     /**
-     * 删除最后一个
+     * 删除 尾元素
      * @return
      */
     public E removeLast(){
         return remove(size - 1);
     }
+
+    /**
+     * 链表反转
+     */
     public void reverseList(){
-        reverseList(dummyHead);
+        dummyHead.next = reverseList(dummyHead.next, 0);
     }
-    public Node reverseList(Node root){
+    public void reverseList1(){
+        dummyHead.next = reverseList1(dummyHead.next);
+    }
+    private Node reverseList1(Node node){
+        if(node.next == null){
+            return node;
+        }
+        Node cur = reverseList1(node.next);
+        node.next.next = node;
+        node.next = null;
+        return cur;
+    }
+
+    /**
+     * 链表反转 - 递归实现
+     * @param root
+     * @return
+     */
+    private Node reverseList(Node root, int deap){
+        System.out.println("递归深度==>" + deap);
         if(root.next == null){
             return root;
         }
-        Node node = reverseList(root.next);
-        root.next.next = root;
+        // 先记住 root 的next节点
+        Node temp = root.next;
+        // 递归 root 的next节点，并返回root的节点
+        Node node = reverseList(root.next, (deap + 1));
+        // 将 root 节点与链表断开连接
         root.next = null;
+        // 让我们之前缓存的 root的下一个节点 指向 root节点，这样就实现了链表的反转
+        temp.next = root;
         return node;
     }
+    /**
+     private Node reverseList(Node root, int deap){
+        System.out.println("root ==> " + root);
+        System.out.println("递归深度：" + deap);
+        if(root.next == null){
+            return root;
+        }
+        // 先记住 root 的next节点
+        Node temp = root.next;
+        System.out.println("缓存的当前节点的: temp ==> " + temp);
+        // 递归 root 的next节点，并返回root的节点
+        Node node = reverseList(root.next, (deap + 1));
+        System.out.println("递归返回的节点: node ==> " + node);
+        // 将 root 节点与链表断开连接
+        root.next = null;
+        // 让我们之前缓存的 root的下一个节点 指向 root节点，这样就实现了链表的反转
+        temp.next = root;
+        System.out.println("temp.next = root; 之后 temp ==>" + temp);
+        return node;
+    }
+     */
     @Override
     public String toString(){
         StringBuilder res = new StringBuilder();

@@ -9,8 +9,8 @@ package link;
  **/
 public class Main {
     public static void main(String[] args) {
-//        testLinkedList();
-        testLinkedListR();
+        testLinkedList();
+//        testLinkedListR();
     }
     public static void testLinkedListR(){
         LinkedListR<Integer> linkedList = new LinkedListR<>();
@@ -18,6 +18,7 @@ public class Main {
             linkedList.add(0, i);
             System.out.println(linkedList);
         }
+
 
 //        linkedList.add(2, 666);
 //        System.out.println(linkedList);
@@ -52,13 +53,16 @@ public class Main {
         System.out.println(linkedList);*/
     }
     public static void testLinkedList(){
-        LinkedList<Integer> linkedList = new LinkedList<>();
-        for(int i = 0 ; i < 5 ; i ++){
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+        for(int i = 0 ; i < 4 ; i ++){
             linkedList.addFirst(i);
             System.out.println(linkedList);
         }
 
-        linkedList.add(2, 666);
+//        linkedList.add(2, 666);
+//        System.out.println(linkedList);
+
+        linkedList.reverseList();
         System.out.println(linkedList);
 
         /*linkedList.set(2, 688);

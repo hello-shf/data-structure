@@ -12,7 +12,8 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
 //        test();
-        order();
+//        order();
+        test1();
     }
     public static void order(){
         BST<Integer> bst = new BST<>();
@@ -36,6 +37,22 @@ public class Main {
         System.out.println("-------------后序遍历------------");
         bst.postOrder();
 
+    }
+    public static void test1(){
+        BST<Integer> bst = new BST<>();
+        bst.add(20);
+        bst.add(10);
+        bst.add(6);
+        bst.add(14);
+        bst.add(29);
+        bst.add(25);
+        bst.add(33);
+        System.out.println("-------------前序遍历------------");
+        bst.preOrder();
+        System.out.println("-------------中序遍历------------");
+        bst.inOrder();
+        System.out.println("-------------后序遍历------------");
+        bst.postOrder();
     }
     public static void test(){
         BST<Integer> bst = new BST<>();

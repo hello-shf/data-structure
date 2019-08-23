@@ -2,13 +2,14 @@ package heap;
 
 
 /**
- * 描述：
+ * 描述：最大堆
  *
  * @Author shf
  * @Date 2019/7/29 10:13
  * @Version V1.0
  **/
 public class MaxHeap<E extends Comparable<E>> {
+    //使用数组存储
     private Array<E> data;
     public MaxHeap(){
         data = new Array<>();
@@ -16,6 +17,11 @@ public class MaxHeap<E extends Comparable<E>> {
     public MaxHeap(int capacity){
         data = new Array<>(capacity);
     }
+
+    /**
+     * Heapify
+     * @param arr
+     */
     public MaxHeap(E[] arr){
         data = new Array<>(arr);
         for(int i = parent(arr.length - 1); i >= 0; i --){
@@ -38,7 +44,7 @@ public class MaxHeap<E extends Comparable<E>> {
         if(index ==0){
             throw new IllegalArgumentException("该节点为根节点");
         }
-        return (index - 1) / 2;
+        return (index - 1) / 2;//这里为什么不分左右？因为java中 / 运算符只保留整数位。
     }
 
     /**
@@ -61,18 +67,22 @@ public class MaxHeap<E extends Comparable<E>> {
 
     /**
      * 向堆中添加元素
+     * 时间复杂度 O（logn）
      * @param e
      */
     public void add(E e){
+        // 向数组尾部添加元素
         this.data.addLast(e);
         siftUp(data.getSize() - 1);
     }
 
     /**
      * 上浮操作
+     * 时间复杂度 O（logn）
      * @param k
      */
     private void siftUp(int k) {
+        // 上浮，如果大于父节点，进行交换
         while(k > 0 && get(k).compareTo(get(parent(k))) > 0){
             data.swap(k, parent(k));
             k = parent(k);
@@ -81,6 +91,7 @@ public class MaxHeap<E extends Comparable<E>> {
 
     /**
      * 获取 index 索引位置的元素
+     * 时间复杂度 O（1）
      * @param index
      * @return
      */
@@ -90,6 +101,7 @@ public class MaxHeap<E extends Comparable<E>> {
 
     /**
      * 查找堆中的最大元素
+     * 时间复杂度 O（1）
      * @return
      */
     public E findMax(){
@@ -101,6 +113,7 @@ public class MaxHeap<E extends Comparable<E>> {
 
     /**
      * 取出堆中最大元素
+     * 时间复杂度 O（logn）
      * @return
      */
     public E extractMax(){
@@ -113,6 +126,7 @@ public class MaxHeap<E extends Comparable<E>> {
 
     /**
      * 下沉操作
+     * 时间复杂度 O（logn）
      * @param k
      */
     public void siftDown(int k){
@@ -131,6 +145,7 @@ public class MaxHeap<E extends Comparable<E>> {
 
     /**
      * 取出最大的元素，并替换成元素 e
+     * 时间复杂度 O（logn）
      * @param e
      * @return
      */

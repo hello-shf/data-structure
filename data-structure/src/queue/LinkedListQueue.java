@@ -26,13 +26,13 @@ public class LinkedListQueue{
 
 
 
-/*import com.shf.self.link.LinkedList;
+/*import com.shf.self.link.MyLinkedList;
 
 public class LinkedListQueue<E> implements Queue<E> {
-    private LinkedList<E> list;
+    private MyLinkedList<E> list;
 
     public LinkedListQueue(){
-        this.list = new LinkedList<>();
+        this.list = new MyLinkedList<>();
     }
 
     @Override
