@@ -1,4 +1,6 @@
 # my-struggle-leetcode
+我的奋斗-记录点滴生活
+# 算法打卡日记
 
 | ID | topic | Solution | ideas | Java | Python | blog |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
